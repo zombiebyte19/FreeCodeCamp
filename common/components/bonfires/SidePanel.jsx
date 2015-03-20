@@ -118,6 +118,13 @@ var SidePanel = React.createClass({
               </Col>
             </Row>
           </Well>
+          <Button
+            bsStyle='primary'
+            block={ true }
+            className='btn-big'>
+            Run Code (ctrl + enter)
+          </Button>
+          <br />
         </div>
       </Col>
     );
