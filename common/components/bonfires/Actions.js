@@ -1,17 +1,19 @@
 var Action = require('thundercats').Action,
-  getModel = require('../../utils/getModel'),
-  debug = require('debug')('freecc:common:bonfires');
+    executeBonfire = require('./executeBonfire'),
+    getModel = require('../../utils/getModel'),
+    debug = require('debug')('freecc:common:bonfires');
 
 var BonfireActions = Action.createActions([
-  'testBonfire',
+  'setUserCode',
+  'testUserCode',
   'setBonfire',
-  'getNextBonfire',
+  'getBonfire',
   'handleBonfireError',
   'openCompletionModal'
 ]);
 
 BonfireActions
-  .getNextBonfire
+  .getBonfire
   .subscribe(function(params) {
     var Bonfire = getModel('bonfire');
     var bonfireName = params.bonfireName ?
@@ -39,6 +41,16 @@ BonfireActions
         BonfireActions.setBonfire(bonfire);
       }
     );
+  });
+
+
+BonfireActions
+  .testUserCode
+  .subscribe(function({ userCode, tests }) {
+    debug('test bonfire');
+    executeBonfire(userCode, tests, function(err, data) {
+      debug('bonfire tests run', err, data);
+    });
   });
 
 module.exports = BonfireActions;

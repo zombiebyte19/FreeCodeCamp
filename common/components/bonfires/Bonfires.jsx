@@ -9,6 +9,7 @@ var React = require('react'),
     { Grid, Row, Col } = require('react-bootstrap'),
 
     // ## flux
+    BonfireActions = require('./Actions'),
     BonfireStore = require('./Store');
 
 var Bonfire = React.createClass({
@@ -41,10 +42,17 @@ var Bonfire = React.createClass({
     }
   },
 
+  _onTestBonfire: function() {
+    BonfireActions.testUserCode({
+      userCode: this.state.userCode,
+      tests: this.state.tests
+    });
+  },
+
   render: function() {
     var {
       name,
-      challengeSeed,
+      userCode,
       difficulty,
       description
     } = this.state;
@@ -61,11 +69,14 @@ var Bonfire = React.createClass({
             name={ name }
             brief={ brief }
             difficulty={ difficultyInt }
+            onTestBonfire={ this._onTestBonfire }
             description={ description.length > 1 ? description : [] }/>
           <Col
             xs={ 12 }
             md={ 8 }>
-            <Editor value={ challengeSeed }/>
+            <Editor
+              onValueChange={ BonfireActions.setUserCode }
+              value={ userCode }/>
           </Col>
         </Row>
       </Grid>

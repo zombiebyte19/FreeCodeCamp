@@ -12,7 +12,8 @@ var SidePanel = React.createClass({
     name: React.PropTypes.string,
     brief: React.PropTypes.string,
     description: React.PropTypes.array,
-    difficulty: React.PropTypes.number
+    difficulty: React.PropTypes.number,
+    onTestBonfire: React.PropTypes.func
   },
 
   getDefaultProps: function() {
@@ -56,7 +57,7 @@ var SidePanel = React.createClass({
       return <p key={ index }>{ sentance }</p>;
     });
 
-    if (isDescription) {
+    if (isDescription && this.state.isMoreInfoOpen) {
       return (
         <Row>
           <Col xs={ 12 }>
@@ -85,7 +86,6 @@ var SidePanel = React.createClass({
   },
 
   render: function() {
-    var isMoreInfoOpen = this.state.isMoreInfoOpen;
     var isDescription = this.props.description &&
       this.props.description.length > 1;
 
@@ -107,11 +107,7 @@ var SidePanel = React.createClass({
                 <div className='bonfire-instructions'>
                   <p>{ this.props.brief }</p>
                   <div>
-                    {
-                      isMoreInfoOpen ?
-                      this._renderMoreInfo(isDescription) :
-                      null
-                    }
+                    { this._renderMoreInfo(isDescription) }
                     { this._renderMoreInfoButton(isDescription) }
                   </div>
                 </div>
@@ -121,7 +117,8 @@ var SidePanel = React.createClass({
           <Button
             bsStyle='primary'
             block={ true }
-            className='btn-big'>
+            className='btn-big'
+            onClick={ this.props.onTestBonfire }>
             Run Code (ctrl + enter)
           </Button>
           <br />

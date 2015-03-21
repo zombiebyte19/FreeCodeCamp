@@ -5,28 +5,44 @@ var BonfiresStore = Store.create({
 
   getInitialValue: function() {
     return {
-      challengeSeed: 'initial seed',
+      userCode: 'console.log(\'FreeCodeCamp!\')',
       difficulty: 0,
       description: [
         'default state'
-      ]
+      ],
+      tests: []
     };
   },
 
   getOperations: function() {
     var {
-      setBonfire
+      setBonfire,
+      setUserCode,
     } = BonfiresActions;
 
     return [
       setBonfire
-        .map(function({ name, challengeSeed, description, difficulty}) {
+        .map(function(bonfire) {
+          var {
+            name,
+            description,
+            difficulty,
+            tests
+          } = bonfire;
+          var userCode = bonfire.challengeSeed;
           return {
             name,
-            challengeSeed,
+            userCode,
+            tests,
             description,
             difficulty
           };
+        })
+        .map(setStateUtil),
+
+      setUserCode
+        .map(function(userCode) {
+          return { userCode };
         })
         .map(setStateUtil)
     ];

@@ -6,6 +6,7 @@ var React = require('react'),
 var Editor = React.createClass({
 
   propTypes: {
+    onValueChange: React.PropTypes.func,
     value: React.PropTypes.string
   },
 
@@ -38,6 +39,9 @@ var Editor = React.createClass({
       value: this.state.CodeMirrorValue,
       onChange: e => {
         this.setState({ CodeMirrorValue: e.target.value});
+        if (typeof this.props.onValueChange === 'function') {
+          this.props.onValueChange(e.target.value);
+        }
       }
     };
 

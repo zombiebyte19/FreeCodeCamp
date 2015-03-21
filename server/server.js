@@ -183,6 +183,10 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(
+  serveStatic(path.join(__dirname, 'public'), {maxAge: 31557600000})
+);
+
 boot(app, {
   env: process.env.NODE_ENV,
   appRootDir: __dirname
@@ -215,10 +219,6 @@ app.use(function (req, res, next) {
   req.session.returnTo = req.path;
   next();
 });
-
-app.use(
-  serveStatic(path.join(__dirname, 'public'), {maxAge: 31557600000})
-);
 
 app.start = function() {
   // start the web server
