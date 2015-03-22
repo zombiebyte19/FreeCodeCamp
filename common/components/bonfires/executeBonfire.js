@@ -17,8 +17,11 @@ function executeBonfire(userCode, tests, cb) {
   debug('sending code to web worker for testing');
   testCode(preppedCode, function(err, data) {
     if (err) { return cb(err); }
-    var _tests = runTests(userTests, data, testSalt);
-    debug('testing complete', _tests);
-    cb(null, _tests);
+    var results = runTests(userTests, data, testSalt);
+    debug('testing complete', results);
+    cb(null, {
+      output: data.output,
+      results
+    });
   });
 }

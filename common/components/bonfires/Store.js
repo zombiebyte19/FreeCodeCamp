@@ -10,7 +10,8 @@ var BonfiresStore = Store.create({
       description: [
         'default state'
       ],
-      tests: []
+      tests: [],
+      results: null
     };
   },
 
@@ -18,6 +19,8 @@ var BonfiresStore = Store.create({
     var {
       setBonfire,
       setUserCode,
+      setResults,
+      setDisplay
     } = BonfiresActions;
 
     return [
@@ -43,6 +46,18 @@ var BonfiresStore = Store.create({
       setUserCode
         .map(function(userCode) {
           return { userCode };
+        })
+        .map(setStateUtil),
+
+      setDisplay
+        .map(function(display) {
+          return { display };
+        })
+        .map(setStateUtil),
+
+      setResults
+        .map(function(results) {
+          return { results };
         })
         .map(setStateUtil)
     ];

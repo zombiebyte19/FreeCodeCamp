@@ -5,7 +5,7 @@ var React = require('react'),
 var Results = React.createClass({
 
   propTypes: {
-    tests: React.PropTypes.array
+    results: React.PropTypes.array
   },
 
   _renderText: function(text, textClass) {
@@ -18,9 +18,9 @@ var Results = React.createClass({
     );
   },
 
-  _renderTest: function(tests) {
-    return tests.map(function(test, idx) {
-      var err = test.err;
+  _renderResult: function(results) {
+    return results.map(function(result, idx) {
+      var err = result.err;
       var iconClass = {
         'ion-close-circled big-error-icon': err,
         'ion-checkmark-circled big-success-icon': !err
@@ -37,7 +37,7 @@ var Results = React.createClass({
               className='text-center'>
               <i className={ classNames(iconClass) }></i>
             </Col>
-            { this._renderText(test.text, textClass) }
+            { this._renderText(result.text, textClass) }
             { err ? this._renderText(err, textClass) : null }
           </Row>
           <div className='ten-pixel-break'></div>
@@ -47,13 +47,13 @@ var Results = React.createClass({
   },
 
   render: function() {
-    var tests = this.props.tests;
-    if (!tests || tests.length && tests.length === 0) {
+    var results = this.props.results;
+    if (!results || results.length && results.length === 0) {
       return null;
     }
     return (
       <Grid>
-        { this._renderTest(this.props.tests) }
+        { this._renderResult(this.props.results) }
       </Grid>
     );
   }

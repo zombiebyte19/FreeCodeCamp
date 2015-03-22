@@ -56,7 +56,9 @@ var Bonfire = React.createClass({
       name,
       userCode,
       difficulty,
-      description
+      description,
+      results,
+      display
     } = this.state;
     var brief = description.slice(0, 1).pop();
 
@@ -76,8 +78,10 @@ var Bonfire = React.createClass({
               difficulty={ difficultyInt }
               onTestBonfire={ this._onTestBonfire }
               description={ description.length > 1 ? description : [] }/>
-            <Results />
-            <Display />
+            <Display
+              value={ display }/>
+            <Results
+              results={ results }/>
           </Col>
           <Col
             xs={ 12 }

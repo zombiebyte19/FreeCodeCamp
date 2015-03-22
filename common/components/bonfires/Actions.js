@@ -6,6 +6,8 @@ var Action = require('thundercats').Action,
 var BonfireActions = Action.createActions([
   'setUserCode',
   'testUserCode',
+  'setResults',
+  'setDisplay',
   'setBonfire',
   'getBonfire',
   'handleBonfireError',
@@ -48,8 +50,13 @@ BonfireActions
   .testUserCode
   .subscribe(function({ userCode, tests }) {
     debug('test bonfire');
-    executeBonfire(userCode, tests, function(err, data) {
-      debug('bonfire tests run', err, data);
+    executeBonfire(userCode, tests, function(err, { output, results }) {
+      if (err) {
+        debug('error running tests', err);
+        return BonfireActions.setDisplay(err);
+      }
+      BonfireActions.setDisplay(output);
+      BonfireActions.setResults(results);
     });
   });
 
