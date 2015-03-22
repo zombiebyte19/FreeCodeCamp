@@ -18,6 +18,7 @@ function run(code) {
   }
 
   application.remote.callback(err, result);
+  self.close();
 }
 
 
