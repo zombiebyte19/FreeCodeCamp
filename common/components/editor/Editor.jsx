@@ -38,7 +38,7 @@ var Editor = React.createClass({
       textAreaClassName: 'hide-textarea',
       value: this.state.value,
       onChange: e => {
-        this.setState({ CodeMirrorValue: e.target.value});
+        this.setState({ value: e.target.value});
         if (typeof this.props.onValueChange === 'function') {
           this.props.onValueChange(e.target.value);
         }
