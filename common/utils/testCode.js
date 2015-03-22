@@ -1,6 +1,6 @@
 var debug = require('debug')('freecc:testCode'),
     jailed = require('jailed'),
-    { removeLogs } = require('./removeStuff'),
+    { removeLogs, removeComments } = require('./removeStuff'),
     win = require('./globular').window;
 
 module.exports = testCode;
@@ -18,7 +18,6 @@ function testCode(code, cb) {
       cb(null, data);
     }
   };
-
   debug('initiating web worker');
   var plugin = initWebWorker(api);
 

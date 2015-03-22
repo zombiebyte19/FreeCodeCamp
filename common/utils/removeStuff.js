@@ -3,11 +3,11 @@ module.exports = {
   removeLogs: removeLogs
 };
 
-function removeComments(userCode) {
+function removeComments(code) {
   var regex = new RegExp(/(\/\*[^(\*\/)]*\*\/)|\/\/[^\n]*/g);
-  return userCode.replace(regex, '');
+  return code.replace(regex, '');
 }
 
-function removeLogs(userJavaScript) {
-  return userJavaScript.replace(/(console\.[\w]+\s*\(.*\;)/g, '');
+function removeLogs(code) {
+  return code.replace(/(console\.[\w]+\s*\(.*\;)/g, '');
 }

@@ -1,21 +1,24 @@
 var debug = require('debug')('freecc:executebonfire');
 var {
-  removeComments,
   addTests,
+  runTests,
   testCode
 } = require('../../utils');
 
 module.exports = executeBonfire;
 
 function executeBonfire(userCode, tests, cb) {
-  var userTests = null;
-  var preppedCode;
-  var testSalt = Math.random();
+
   // TODO: move this into componentDidMount
   // ga('send', 'event', 'Bonfire', 'ran-code', bonfireName);
-  userCode = removeComments(userCode);
-  preppedCode = addTests(userCode, userTests, tests, testSalt);
+  var testSalt = Math.random();
+  var { preppedCode, userTests } = addTests(userCode, tests, testSalt);
 
   debug('sending code to web worker for testing');
-  testCode(preppedCode, cb);
+  testCode(preppedCode, function(err, data) {
+    if (err) { return cb(err); }
+    var _tests = runTests(userTests, data, testSalt);
+    debug('testing complete', _tests);
+    cb(null, _tests);
+  });
 }

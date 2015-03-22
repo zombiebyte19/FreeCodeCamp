@@ -1,4 +1,5 @@
-var globular = require('./globular'),
+var chai = require('chai'),
+    globular = require('./globular'),
     removeStuff = require('./removeStuff'),
     testCode = require('./testCode');
 
@@ -7,13 +8,13 @@ module.exports = {
   globular: globular,
   removeComments: removeStuff.removeComments,
   removeLogs: removeStuff.removeLogs,
+  runTests: runTests,
   testCode: testCode
 };
 
-function addTests(userCode, userTests, tests, testSalt) {
-  if (!userTests) {
-    userTests = [];
-  }
+function addTests(userCode, tests, testSalt) {
+  userCode = removeStuff.removeComments(userCode);
+  var userTests = [];
   // append code tests to user code
   for (var i = 0; i < tests.length; i++) {
     userCode += '\n' + tests[i];
@@ -46,5 +47,36 @@ function addTests(userCode, userTests, tests, testSalt) {
     match = regex.exec(userCode);
   }
 
-  return userCode;
+  return {
+    preppedCode: userCode,
+    userTests
+  };
+}
+
+// TODO: move testing into web worker
+function runTests(tests, data, testSalt) {
+  tests.forEach(function(test) {
+    try {
+      if (test) {
+        let assert = chai.assert;
+        let expect = chai.expect;
+        chai.should();
+        var assemledTests = reassembleTest(test, data, testSalt);
+        eval(assemledTests);
+
+      }
+    } catch(e) {
+      test.err = e.name + ':' + e.message;
+    }
+    Object.prototype.should = null;
+    delete Object.prototype.should;
+  });
+
+  return tests;
+}
+
+function reassembleTest(test, data, testSalt) {
+  var lineNum = test.line;
+  var regexp = new RegExp('\/\/' + lineNum + testSalt);
+  return data.input.replace(regexp, test.text);
 }
