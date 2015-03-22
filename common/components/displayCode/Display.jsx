@@ -21,6 +21,7 @@ var Editor = React.createClass({
   },
 
   render: function() {
+    var value = this.props.value;
     var options = {
       lineNumbers: false,
       lineWrapping: true,
@@ -28,7 +29,7 @@ var Editor = React.createClass({
       readOnly: 'noCursor',
       textAreaClassName: 'hide-textarea',
       theme: 'monokai',
-      value: this.props.value
+      value: value
     };
 
     var config = {
