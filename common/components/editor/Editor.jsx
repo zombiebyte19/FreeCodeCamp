@@ -18,7 +18,7 @@ var Editor = React.createClass({
 
   getInitialState: function() {
     return {
-      CodeMirrorValue: this.props.value
+      value: this.props.value
     };
   },
 
@@ -36,7 +36,7 @@ var Editor = React.createClass({
       scrollbarStyle: 'null',
       theme: 'monokai',
       textAreaClassName: 'hide-textarea',
-      value: this.state.CodeMirrorValue,
+      value: this.state.value,
       onChange: e => {
         this.setState({ CodeMirrorValue: e.target.value});
         if (typeof this.props.onValueChange === 'function') {
