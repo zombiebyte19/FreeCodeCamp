@@ -1,4 +1,6 @@
 var React = require('react'),
+
+    // ## components
     {
       Well,
       Row,
@@ -90,40 +92,36 @@ var SidePanel = React.createClass({
       this.props.description.length > 1;
 
     return (
-      <Col
-        xs={ 12 }
-        md={ 4 }>
-        <div>
-          <h1 classNameName='text-center'>{ this.props.name }</h1>
-          <h2 classNameName='text-center'>
-            <div classNameName='bonfire-flames'>
-              Difficulty:&nbsp;
-              { this._renderFlames() }
-            </div>
-          </h2>
-          <Well>
-            <Row>
-              <Col xs={ 12 }>
-                <div className='bonfire-instructions'>
-                  <p>{ this.props.brief }</p>
-                  <div>
-                    { this._renderMoreInfo(isDescription) }
-                    { this._renderMoreInfoButton(isDescription) }
-                  </div>
+      <div>
+        <h1 classNameName='text-center'>{ this.props.name }</h1>
+        <h2 classNameName='text-center'>
+          <div classNameName='bonfire-flames'>
+            Difficulty:&nbsp;
+            { this._renderFlames() }
+          </div>
+        </h2>
+        <Well>
+          <Row>
+            <Col xs={ 12 }>
+              <div className='bonfire-instructions'>
+                <p>{ this.props.brief }</p>
+                <div>
+                  { this._renderMoreInfo(isDescription) }
+                  { this._renderMoreInfoButton(isDescription) }
                 </div>
-              </Col>
-            </Row>
-          </Well>
-          <Button
-            bsStyle='primary'
-            block={ true }
-            className='btn-big'
-            onClick={ this.props.onTestBonfire }>
-            Run Code (ctrl + enter)
-          </Button>
-          <br />
-        </div>
-      </Col>
+              </div>
+            </Col>
+          </Row>
+        </Well>
+        <Button
+          bsStyle='primary'
+          block={ true }
+          className='btn-big'
+          onClick={ this.props.onTestBonfire }>
+          Run Code (ctrl + enter)
+        </Button>
+        <br />
+      </div>
     );
   }
 });

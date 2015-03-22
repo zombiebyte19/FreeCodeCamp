@@ -5,6 +5,7 @@ var React = require('react'),
 
     // ## components
     SidePanel = require('./SidePanel.jsx'),
+    Results = require('./Results.jsx'),
     Editor = require('../editor'),
     { Grid, Row, Col } = require('react-bootstrap'),
 
@@ -65,12 +66,17 @@ var Bonfire = React.createClass({
     return (
       <Grid>
         <Row>
-          <SidePanel
-            name={ name }
-            brief={ brief }
-            difficulty={ difficultyInt }
-            onTestBonfire={ this._onTestBonfire }
-            description={ description.length > 1 ? description : [] }/>
+          <Col
+            xs={ 12 }
+            md={ 4 }>
+            <SidePanel
+              name={ name }
+              brief={ brief }
+              difficulty={ difficultyInt }
+              onTestBonfire={ this._onTestBonfire }
+              description={ description.length > 1 ? description : [] }/>
+            <Results />
+          </Col>
           <Col
             xs={ 12 }
             md={ 8 }>
