@@ -93,9 +93,9 @@ var SidePanel = React.createClass({
 
     return (
       <div>
-        <h1 classNameName='text-center'>{ this.props.name }</h1>
-        <h2 classNameName='text-center'>
-          <div classNameName='bonfire-flames'>
+        <h1 className='text-center'>{ this.props.name }</h1>
+        <h2 className='text-center'>
+          <div className='bonfire-flames'>
             Difficulty:&nbsp;
             { this._renderFlames() }
           </div>
