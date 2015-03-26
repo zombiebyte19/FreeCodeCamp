@@ -1,4 +1,4 @@
-var Store = require('rx-flux').Store,
+var Store = require('thundercats').Store,
     ContextActions = require('./Actions');
 
 var ContextStore = Store.create({
